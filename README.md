@@ -20,3 +20,7 @@ a + enter -> move left
 d + enter -> move right
 
 q + enter -> quit game
+
+## Screenshot
+
+![Game Screenshot](https://github.com/NAEK2K/walking-simulator/blob/master/screenshot.png "Game Screenshot")
