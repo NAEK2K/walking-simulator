@@ -12,7 +12,11 @@ Simple C++ terminal game where you simply walk around on a 10x10 grid. You are t
 ## Commands
 
 w + enter -> move up
+
 s + enter -> move down
+
 a + enter -> move left
+
 d + enter -> move right
+
 q + enter -> quit game
