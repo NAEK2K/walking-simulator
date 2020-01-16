@@ -1,11 +1,14 @@
 #include <iostream>
 #include <stdlib.h>
+#include <ctime>
+#include <cmath>
 
 class Game {
     public:
 
         // constructor - sets the maps initial values
         Game() {
+            srand(time(NULL));
             for (int i = 0; i < 10; i++) {
                 for (int j = 0; j < 10; j++) {
                     map[i][j] = 0;
@@ -13,6 +16,7 @@ class Game {
             }
             x = 0;
             y = 0;
+            score = 0;
         }
         // displays the map in the terminal
         void show() {
@@ -21,12 +25,16 @@ class Game {
                 for (int j = 0; j < 10; j++) {
                     if(this->x == j && this->y == i) {
                         std::cout << 1 << " ";
+                    } else if(this->pointX == j && this->pointY == i) {
+                        std::cout << 0 << " ";
                     } else {
-                        std::cout << map[i][j] << " ";
+                        // std::cout << map[i][j] << " ";
+                        std::cout << "|" << " ";
                     }
                 }
                 std::cout << std::endl;
             }
+            std::cout << "Score: " << this->score << std::endl;
         }
         // checks if x or y will go out of bounds in the next move, returns true if it will go out of bounds
         bool edgeCheck(int x, int y) {
@@ -54,8 +62,27 @@ class Game {
             }
         }
 
+        // generates a new point for the player to collect
+        void generatePoint() {
+            pointX = floor(rand() % 10);
+            pointY = floor(rand() % 10);
+            while(this->pointX == this->x && this->pointY == this->y) {
+                pointX = floor(rand() % 10);
+                pointY = floor(rand() % 10); 
+            }
+        }
+
+        // checks if the user has picked up the point
+        void collectPoint() {
+            if(this->x == this->pointX && this->y == this->pointY) {
+                score++;
+                generatePoint();
+            }
+        }
+
         // runs the game in the terminal window
         void run() {
+            this->generatePoint();
             this->show();
             char move;
             while (move != 'q') {
@@ -66,6 +93,7 @@ class Game {
                 }
                 else {
                     this->move(move);
+                    collectPoint();
                 }
                 this->show();
             }
@@ -73,6 +101,8 @@ class Game {
 
     private:
         int x, y;
+        int pointX, pointY;
+        int score;
         int map[10][10];
 };
 
